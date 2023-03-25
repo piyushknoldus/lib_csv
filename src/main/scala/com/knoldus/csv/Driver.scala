@@ -9,12 +9,12 @@ object Driver extends App {
     "/home/knoldus/Downloads/business-operations-survey-2022-business-finance.csv"
   )
 
-  fileReader.eachRow { row =>
+  urlReader.map(_.eachRow { row =>
     val description = row.getOptionalValue("description")
     val industry = row.getOptionalValue("industry")
     val level = row.getOptionalValue("level")
 
     println(s"$description \t $industry \t $level")
 
-  }
+  })
 }

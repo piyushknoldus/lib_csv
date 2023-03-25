@@ -7,18 +7,22 @@ import java.io.File
 object CsvReader {
   def fetchFromUrl(
     url: String
-  ): CsvReader = {
-    CsvReader(
-      file = CsvUtils.downloadToTempFile(url)
-    )
+  ): Either[String, CsvReader] = {
+    CsvUtils.downloadToTempFile(url).map { tempFile =>
+      CsvReader(
+        file = tempFile
+      )
+    }
   }
 
   def fetchFromFile(
     path: String
-  ): CsvReader = {
-    CsvReader(
-      file = CsvUtils.createFromFile(path)
-    )
+  ): Either[String, CsvReader] = {
+    CsvUtils.createFromFile(path).map { tempFile =>
+      CsvReader(
+        file = tempFile
+      )
+    }
   }
 }
 
