@@ -14,8 +14,8 @@ object CsvReader {
   }
 
   def fetchFromFile(
-                   path: String
-                   ): CsvReader = {
+    path: String
+  ): CsvReader = {
     CsvReader(
       file = CsvUtils.createFromFile(path)
     )
