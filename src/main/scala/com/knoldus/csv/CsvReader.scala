@@ -3,6 +3,7 @@ package com.knoldus.csv
 import com.github.tototoshi.csv.CSVReader
 
 import java.io.File
+import scala.util.{Failure, Success, Try}
 
 object CsvReader {
   def fetchFromUrl(
@@ -35,7 +36,7 @@ case class CsvReader(file: File) {
   def eachRow(f: CsvMap => Unit): Unit = {
 
     val reader: CSVReader = CSVReader.open(file)
-    try {
+    Try {
       reader.foreach { parts =>
         parts
           .filter(_.trim.nonEmpty)
@@ -62,8 +63,10 @@ case class CsvReader(file: File) {
           }
         } else ()
       }*/
-    } finally {
-      reader.close()
+    } match {
+      case Failure(exception) => throw exception
+      case Success(_) =>
+        reader.close()
     }
   }
 }
