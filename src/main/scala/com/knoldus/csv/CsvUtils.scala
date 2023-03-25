@@ -25,6 +25,7 @@ object CsvUtils {
     val is = new FileInputStream(path)
     val out = new FileOutputStream(tempFile)
     IOUtils.copy(is, out)
+    is.close()
     out.close()
     tempFile
   }
